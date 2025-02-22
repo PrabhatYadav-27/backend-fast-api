@@ -39,7 +39,8 @@ Base.metadata.create_all(bind=engine)
 
 # Pydantic Schema for request validation
 class IdentifyRequest(BaseModel):
-    email: EmailStr | None = None
+    email: Optional[EmailStr] = None
+
     phoneNumber: str | None = None
 
 
