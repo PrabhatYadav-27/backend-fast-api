@@ -103,3 +103,12 @@ def identify_contact(request: IdentifyRequest):
         return format_response(primary_contact, secondary_contacts)
     finally:
         db.close()
+
+# Helper function to format response
+def format_response(primary_contact, secondary_contacts):
+    return {
+        "primaryContactId": primary_contact.id,
+        "emails": list(set([c.email for c in [primary_contact] + secondary_contacts if c.email])) ,
+        "phoneNumbers": list(set([c.phoneNumber for c in [primary_contact] + secondary_contacts if c.phoneNumber])) ,
+        "secondaryContactIds": [c.id for c in secondary_contacts]
+    }
